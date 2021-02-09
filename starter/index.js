@@ -26,19 +26,25 @@ const url = require('url');
 //   });
 //});
 
+const data = fs.readFileSync('./dev-data/data.json', 'utf-8' );
+const dataObj = JSON.parse (data);
+   
 const server = http.createServer((req,res)=>{
    const pathName = req.url;
 
    if(pathName === '/' || pathName === '/overview'){
-       res.end(" THIS IS THE OVERVIEW");
+    res.end(" THIS IS THE OVERVIEW");
    }
    else if(pathName === "/product"){
-       res.end("THIS IS THE PRODUCT");
+    res.end("THIS IS THE PRODUCT");
+   }
+   else if(pathName === "/api"){
+    res.writeHead(200, {'content-type':'application/json'})
+    res.end(data);
    }
    else{ 
-       res.writeHead(404);
-       
-       res.end('<h1>PAGE NOT FOUND!!!<h1>');
+    res.writeHead(404);
+    res.end('<h1>PAGE NOT FOUND!!!<h1>');
    }
 });
 
